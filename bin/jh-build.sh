@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker build -t jupyterhub-sssc $(dirname "$0")/..
+docker build -t jupyterhub-ztf $(dirname "$0")/..

@@ -11,7 +11,7 @@ for USER in $(ls $HOMEDIR); do
 
 	echo "adding user $USER, uid/gid = $USERID/$GROUPID"
 	groupadd -g $GROUPID $USER
-	useradd -M -s /bin/bash -u $USERID -g $GROUPID -G sssc $USER
+	useradd -M -s /bin/bash -u $USERID -g $GROUPID -G ztf $USER
 done
 
 #

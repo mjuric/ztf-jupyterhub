@@ -1,12 +1,4 @@
-# Designed to be run as:
-# 
-#  docker run -it -p 8000:8000 
-#     --env-file=env 
-#     -v /epyc/opt/anaconda:/epyc/opt/anaconda 
-#     -v /usr/local/share/jupyter/kernels:/usr/local/share/jupyter/kernels
-#     -v /epyc/projects/sssc/home:/home
-#     -v /epyc/opt/projects/sssc/lsst:/epyc/opt/projects/sssc/lsst
-#     jupyterhub-oauth
+# Designed to be run with bin/jh-run.sh
 #
 
 FROM jupyterhub/jupyterhub
@@ -36,7 +28,8 @@ RUN apt-get install -y libgl1-mesa-glx libgomp1 libgfortran3
 RUN apt-get install -y man manpages-dev
 RUN apt-get install -y joe vim emacs
 
-
+# Install mysql
+RUN apt-get install -y mariadb-server
 
 
 # Install oauthenticator from git
@@ -58,12 +51,13 @@ RUN chmod +x /srv/single-user.sh
 RUN rm -rf /opt/conda/share/jupyter/kernels
 RUN ln -s /usr/local/share/jupyter/kernels /opt/conda/share/jupyter/kernels
 RUN mkdir -p /usr/local/share/jupyter
-RUN ln -s /epyc/projects/sssc/sssc-jupyterhub/kernels /usr/local/share/jupyter/kernels
+RUN ln -s /epyc/projects/ztf-jupyter/ztf-jupyterhub/kernels /usr/local/share/jupyter/kernels
 
-# Add link to sssc to home directories (so notebooks can escape into the
+# Add link to ztf to home directories (so notebooks can escape into the
 # common dir)
-RUN ln -s /epyc/projects/sssc /etc/skel/sssc
-RUN groupadd sssc
+RUN ln -s /epyc/projects/ztf-jupyter/common /etc/skel/common
+RUN ln -s /epyc/data/ztf /etc/skel/ztf
+RUN groupadd ztf
 
 # Have bash source the LSST environment in an interactive shell
 ADD bashrc-addition.sh bashrc-addition.sh
