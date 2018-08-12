@@ -31,7 +31,6 @@ RUN apt-get install -y joe vim emacs
 # Install mysql
 RUN apt-get install -y mariadb-server
 
-
 # Install oauthenticator from git
 RUN python3 -m pip install oauthenticator
 
@@ -67,3 +66,7 @@ RUN cat bashrc-addition.sh >> /etc/bash.bashrc && rm bashrc-addition.sh
 ADD start.sh /srv/oauthenticator/start.sh
 RUN chmod 700 /srv/oauthenticator/start.sh
 CMD ["/srv/oauthenticator/start.sh"]
+
+# Copy couchbase libraries
+ADD rh-libs/lib* /usr/lib/x86_64-linux-gnu/
+RUN cd /usr/lib/x86_64-linux-gnu && ln -s libcouchbase.so.2.0.58 libcouchbase.so.2
