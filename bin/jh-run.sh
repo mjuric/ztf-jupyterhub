@@ -7,6 +7,8 @@ docker \
 	run --rm -it -p 9976:9976 \
 	--cpus=16 \
 	--memory=128g \
+	--name=ztf-jupyterhub \
+	--hostname=ztf-jupyterhub \
 	--env-file=/epyc/projects/ztf-jupyter/env \
 	-v /var/lib/mysql/mysql.sock:/var/run/mysqld/mysqld.sock \
 	-v /epyc/opt/anaconda:/epyc/opt/anaconda \
